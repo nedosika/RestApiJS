@@ -1,8 +1,8 @@
 'use strict';
 
-const Hapi = require('@hapi/hapi');
-const MySQL = require('mysql');
-const Joi = require('@hapi/joi');
+import Hapi from '@hapi/hapi';
+import MySQL from 'mysql';
+import Joi from '@hapi/joi'
 
 const server = new Hapi.server({
     port: 3000,
@@ -49,13 +49,13 @@ server.route({
             });
         });
     },
-//    config: {
-//	validate: {
-//	    params: {
-//		uid: Joi.number().integer()
-//	    }
-//	}
-//    }
+    options: {
+	validate: {
+	    params: Joi.object({
+		uid: Joi.number().integer()
+	    })
+	}
+    }
 });
 
 server.route({
@@ -81,22 +81,10 @@ server.route({
             });
         });
     },
-
-//    config: {
-//        cors: {
-//    	    origin: ['*'],
-//            additionalHeaders: ['cache-control', 'x-requested-with']
-//        },
-//        validate: {
-//            payload: {
-//                uid: Joi.number().integer()
-//            }
-//        }
-//    },
     options: {
-         cors: {
-             origin: ['*'],
-             additionalHeaders: ['cache-control', 'x-requested-with']
+        cors: {
+            origin: ['*'],
+            additionalHeaders: ['cache-control', 'x-requested-with']
         },
 	validate: {
 	    payload: Joi.object({
@@ -127,14 +115,14 @@ server.route({
     	    });
     	})
     },
-//    config: {
-//        validate: {
-//            params: {
-//                uid: Joi.number().integer(),
-//                mid: Joi.number().integer()
-//            }
-//        }
-//    }
+    options: {
+        validate: {
+            params: Joi.object({
+                uid: Joi.number().integer(),
+                mid: Joi.number().integer()
+            })
+        }
+    }
 });
 
 server.start();
