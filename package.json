@@ -13,6 +13,7 @@
   "dependencies": {
     "@hapi/hapi": "^19.1.1",
     "@hapi/joi": "^17.1.1",
+    "filepaths": "^0.3.0",
     "hapi": "^18.1.0",
     "joi": "^14.3.1",
     "mysql": "^2.18.1"
