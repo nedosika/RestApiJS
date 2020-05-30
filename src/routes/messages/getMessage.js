@@ -28,7 +28,7 @@ const handler = async request => {
 
 module.exports = {
     method: 'GET',
-    path: '/message/{id}',
+    path: '/messages/{id}',
     config: {
 	handler,
 	description: 'Get message',
