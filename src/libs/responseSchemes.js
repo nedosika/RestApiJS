@@ -15,11 +15,11 @@ const token = Joi.object({
 });
 
 const message = Joi.object({
-    id: Joi.number().integer().example(1),
-    user_id: Joi.number().integer().example(1),
+    mid: Joi.number().integer().example(1),
     message: Joi.string().example('Lorem ipsum dolor sit amet ...'),
-    updatedAt: Joi.date().example('2019-02-16T15:38:48.243Z'),
-    createdAt: Joi.date().example('2019-02-16T15:38:48.243Z')
+    uid_fk: Joi.number().integer().example(1),
+    //updatedAt: Joi.date().example('2019-02-16T15:38:48.243Z'),
+    //createdAt: Joi.date().example('2019-02-16T15:38:48.243Z')
 });
 
 module.exports = {

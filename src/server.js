@@ -18,25 +18,13 @@ module.exports = class {
 	const config = this._config;
 	const server = await new Hapi.server(config.server);
 	const __dirname = path.resolve();
-	
-	const swaggerOptions = {
-	    info:{
-		title: ' API Documentation',
-	        version: '0.1b'
-	    },
-	    //jsonPath: '/documentation.json',
-            //documentationPath: '/documentation',
-            //schemes: ['https', 'http'],
-            host: config.swaggerHost,
-            //debug: true
-        };
 
 	await server.register([
             Inert,
             Vision,
             {
                 plugin: HapiSwagger,
-                options: swaggerOptions
+                options: config.swagger
             },
 	    {
 		plugin: require('hapi-sequelizejs'),

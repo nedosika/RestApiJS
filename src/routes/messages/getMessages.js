@@ -1,7 +1,6 @@
 'use strict';
 
 const handler = async request => new Promise((resolve, reject) => {
-console.log('mess');
     request.getModel(request.server.config.db.database, 'messages')
         .findAll()
         .then(results => resolve(results))
@@ -12,6 +11,9 @@ console.log('mess');
 module.exports = {
     method: 'GET',
     path: '/messages',
-    handler
+    options: {
+	handler,
+	tags: ['api']
+    }
 }
 

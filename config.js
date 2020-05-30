@@ -16,5 +16,11 @@ module.exports = {
 	    timestamps: false
 	}
     },
-    swaggerHost: '192.168.0.200',
+    swagger:{
+	info:{
+	    title: ' API Documentation',
+	    version: '0.1b'
+	},
+	host: 'nedosika.pp.ua:3000',
+    }
 }
