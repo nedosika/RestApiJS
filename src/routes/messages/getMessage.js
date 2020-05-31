@@ -7,43 +7,46 @@ const responseScheme = Joi.object({
     data: Joi.array().items(responseSchemes.message)
 });
 
-const handler = async request => {
+const response = async request => {
     return new Promise((resolve, reject) => {
-	const {id} = request.params;
-	const {database} = request.server.config.db;
-	
-	request.getModel(database, 'messages')
-               .findByPk(id)
-               .then(data => {
-            	    resolve({
-            		meta: {
-            		    total: 1
-            		},
-            		data: [ data.get({plain: true}) ]
-            	    });
-            	})
+        const {mid} = request.params;
+        const {database} = request.server.config.db;
+
+        request.getModel(database, 'messages')
+               .findByPk(mid)
+               .then(message => {
+                    const messages = message ?
+                        [message.get({plain: true})] : [];
+                    const result = {
+                        meta: {
+                            total: messages.length
+                        },
+                        data: messages
+                    };
+                    resolve(result);
+                })
                .catch(error => reject(error))
     })
 }
 
 module.exports = {
     method: 'GET',
-    path: '/messages/{id}',
-    config: {
-	handler,
-	description: 'Get message',
-	notes: ['Get message by id'],
-	tags: ['api'],
-	validate: {
-	    params: Joi.object({
-		id: Joi
-		    .number()
-		    .integer()
-		    .required()
-		    .description('the id')
-		    .example(1)
-	    }),
-	},
+    path: '/messages/{mid}',
+    options: {
+        handler: response,
+        description: 'Get message',
+        notes: ['Get message by id'],
+        tags: ['api'],
+        validate: {
+            params: Joi.object({
+                mid: Joi
+                    .number()
+                    .integer()
+                    .required()
+                    .description('the id')
+                    .example(1)
+            }),
+        },
         response: { schema: responseScheme }
     }
 }
